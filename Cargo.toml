@@ -1,8 +1,9 @@
 [package]
-name = "First_Steps"
+name = "trying_rust"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 rand = "0.8.5"
 regex = "1.12.2"
+inquire = "0.9.1"

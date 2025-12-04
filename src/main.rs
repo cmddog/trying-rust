@@ -2,9 +2,26 @@ use rand::Rng;
 use regex::Regex;
 use std::cmp::Ordering;
 use std::io;
+use inquire::Select;
 
 fn main() {
-    celsius_fahrenheit_converter()
+    let options = vec![
+        "Guessing Game",
+        "Temperature Converter",
+        "Quit",
+    ];
+
+    let choice_index = Select::new("Choose an option:", options.clone())
+        .prompt()
+        .map(|choice| options.iter().position(|x| x == &choice).unwrap())
+        .unwrap();
+
+    match choice_index {
+        0 => guessing_game(),
+        1 => celsius_fahrenheit_converter(),
+        2 => std::process::exit(0),
+        _ => unreachable!(),
+    }
 }
 
 fn read_input() -> String {
@@ -42,6 +59,8 @@ fn celsius_fahrenheit_converter() {
         };
 
         println!("{input} is \x1b[1m{value:.2}° {out_name}\x1b[0m");
+
+        main();
     }
 }
 
@@ -79,7 +98,7 @@ fn guessing_game() {
             Ordering::Greater => println!("Too big!"),
             Ordering::Equal => {
                 println!("You win");
-                break;
+                main();
             }
         }
     }
